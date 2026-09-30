@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { compose, pipe, pipe2, pipe3 } from "./compose";
+import { compose, mpipe, pipe, pipe2, pipe3 } from "./compose";
 
 test("pipes values from left to right", function () {
   expect(
@@ -26,4 +26,19 @@ test("pipe variants produce the same result", function () {
   expect(pipe(length, double)("pepe")).toBe(8);
   expect(pipe2(length, double)("pepe")).toBe(8);
   expect(pipe3(length, double)("pepe")).toBe(8);
+});
+
+test("mpipe composes multiple stages from left to right", function () {
+  const length = (value: string) => value.length;
+  const increment = (value: number) => value + 1;
+  const double = (value: number) => value * 2;
+  const format = (value: number) => `length=${value}`;
+  const result: (value: string) => string = mpipe(
+    length,
+    increment,
+    double,
+    format,
+  );
+
+  expect(result("pepe")).toBe("length=10");
 });
