@@ -62,3 +62,20 @@ export function mpipe<
 
 // implemetar mflip
 // implementar mcompose con mflip
+
+
+// CURRIFICACIÓN
+
+// COMPOSICIÓN OO
+
+[1,2,3].map(x => x * 2).filter(x => x>2).reduce((acc, x) => acc+x, 0)
+
+// COMPOSICIÓN FUNCIONAL
+
+mpipe(
+  map((x) => x * 2),
+  filter((x) => x > 2),
+  reduce((acc, x) => acc + x, 0),
+)([(1, 2, 3)]);
+
+
